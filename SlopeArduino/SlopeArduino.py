@@ -1,3 +1,8 @@
+
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
 import serial
 from pylab import *
 import json
@@ -48,23 +53,34 @@ except :
 #
 #########################
 
-def connect_to_arduino( nb_try = 3 ) :
+def connect_to_arduino( nb_try = 3, port = None ) :
 
-    for i in range(nb_try) :
+    if port is None :
+
+        for i in range( nb_try ) :
+            
+            try :
+                port = '/dev/ttyACM' + str(i)
+                
+                arduino = serial.Serial( port = port )
+                
+                arduino.read_all()
+                
+                print( 'Connected to ' + port )
+                
+                return arduino
+                
+            except :
+                pass
+    else :
         
-        try :
-            port = '/dev/ttyACM' + str(i)
-            
-            arduino = serial.Serial( port = port )
-            
-            arduino.read_all()
-            
-            print( 'Connected to ' + port )
-            
-            return arduino
-            
-        except :
-            pass
+        arduino = serial.Serial( port = port )
+               
+        arduino.read_all()
+                
+        print( 'Connected to ' + port )
+                
+        return arduino
 
 
 def arduino_to_degrees( measurement, nbMeasurement, calibration = calibration ) :
