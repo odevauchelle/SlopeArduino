@@ -1,0 +1,1 @@
+{"data_file": "calibration_angle.csv", "calibration_file": "calibration_angle.json", "rotation_radius": 165, "calibration": [{"expression": "x**i", "coeffs": [8.013849133426984, -7.558090857002444e-08]}]}
